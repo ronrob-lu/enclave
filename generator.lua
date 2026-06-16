@@ -94,8 +94,8 @@ local function place_straight_segment(center, x_off, z_off, rot, spawn_points)
     local rx_t, rz_t = rotate_point(12, 11, 31, 86, rot)
     local tower_wx = center.x + x_off + rx_t
     local tower_wz = center.z + z_off + rz_t
-    -- We add +2 so the tower floor sits exactly on top of the ground (with 1 block foundation buffer)
-    local tower_y = get_ground_level(tower_wx, tower_wz, center.y) + 2
+    -- We add +1 so the tower floor sits exactly on top of the ground (with 1 block foundation buffer)
+    local tower_y = get_ground_level(tower_wx, tower_wz, center.y) + 1
 
     local ground_cache = {}
     local function get_cached_ground(wx, wz)
@@ -151,7 +151,7 @@ local function place_straight_segment(center, x_off, z_off, rot, spawn_points)
         local world_z = center.z + z_off + rz
         
         local is_tower = (entry.x >= 10 and entry.x <= 14 and entry.z >= 9 and entry.z <= 13)
-        local base_y = is_tower and tower_y or (get_cached_ground(world_x, world_z) + 2)
+        local base_y = is_tower and tower_y or (get_cached_ground(world_x, world_z) + 1)
         local world_y = base_y + entry.y
         local pos = {x = world_x, y = world_y, z = world_z}
         
@@ -278,7 +278,7 @@ local function place_corner_segment(center, x_off, z_off, rot)
         local world_x = center.x + x_off + rx
         local world_z = center.z + z_off + rz
         
-        local base_y = get_cached_ground(world_x, world_z) + 2
+        local base_y = get_cached_ground(world_x, world_z) + 1
         local world_y = base_y + entry.y
         local pos = {x = world_x, y = world_y, z = world_z}
         
